@@ -19,6 +19,7 @@ print("current dir: ", PATH)
 CLIENT_NAME = input("type name: ")
 CLIENT_PATH = PATH + f"/{CLIENT_NAME}_images"
 
+print(CLIENT_PATH)
 
 ## checking same folder already exist?
 if os.path.exists(os.path.abspath(CLIENT_PATH)):
@@ -27,7 +28,10 @@ else:
     os.mkdir(PATH + f"/{CLIENT_NAME}_images")
 
 
+PIC_LIMIT = 30
+
 ## start capturing
+num = 0
 while True:
     ret, frame = cap.read()
 
@@ -41,7 +45,13 @@ while True:
     cv.imshow("ready to capture", gray)
 
     if cv.waitKey(1) == ord('c'): # start capturing images
-        cv.imwrite(PATH, gray)
+
+        if num <= PIC_LIMIT:
+            saveImagePath = os.path.join(CLIENT_PATH , f"{CLIENT_NAME}_{num}.jpg")
+            cv.imwrite(saveImagePath, gray)
+            num += 1
+        else:
+            print("PIC LIMIT EXCEEDED: no more than 30")
 
 
 ##-------------------------EXIT
