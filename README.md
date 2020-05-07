@@ -6,7 +6,7 @@
 *-- regularly updated*
 
 
-## Come o far
+## how far we have come :) (Important functions)
 
 - **ACQUISITION**
   - Through OpenCV
