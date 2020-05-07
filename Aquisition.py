@@ -2,6 +2,7 @@ import numpy as np
 import cv2 as cv
 import os
 
+
 cap = cv.VideoCapture(0)
 
 if not cap.isOpened():
@@ -13,9 +14,11 @@ if not cap.isOpened():
 PATH = os.path.dirname(os.path.abspath(__file__))
 print("current dir: ", PATH)
 
+
 #client name ask
 CLIENT_NAME = input("type name: ")
 CLIENT_PATH = PATH + f"/{CLIENT_NAME}_images"
+
 
 ## checking same folder already exist?
 if os.path.exists(os.path.abspath(CLIENT_PATH)):
