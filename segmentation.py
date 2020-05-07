@@ -2,7 +2,7 @@ import numpy as np
 from boundary import searchInnerBound, searchOuterBound
 from line import findline, linecoords
 import multiprocessing as mp
-import cv
+import cv2 as cv
 import warnings
 import matplotlib.pyplot as plt
 
@@ -103,8 +103,10 @@ def segment(eyeim, eyelashes_thres=80, use_multiprocess=False): #multiplrocessor
     print("imwithnoise: ", imwithnoise) """
 
     ## shows the image
-    """ plt.imshow(imwithnoise, cmap='gray')
+   """  plt.imshow(imwithnoise, cmap='gray')
     plt.show() """
+
+    
     return ciriris, cirpupil, imwithnoise
 
 
@@ -199,6 +201,9 @@ def findBottomEyelid(imsz, imageiris, rowp, rp, irl, icl, ret_bot=None):
 
 ### debugging
 
-# im = cv.imread("./ir-eye.jpg", cv.IMREAD_GRAYSCALE)
-# print(im.shape)
-# segment(im)
+""" im = cv.imread("./ir-eye.jpg", cv.IMREAD_GRAYSCALE)
+
+# im = cv.bitwise_not(im) #inverting color--- |||| do not invert ||||
+
+print(im.shape)
+segment(im) """
