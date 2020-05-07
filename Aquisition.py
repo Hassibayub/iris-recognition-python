@@ -8,18 +8,23 @@ if not cap.isOpened():
     print("camera not found")
     exit()
 
+
+## setting up path
 PATH = os.path.dirname(os.path.abspath(__file__))
 print("current dir: ", PATH)
 
+#client name ask
 CLIENT_NAME = input("type name: ")
 CLIENT_PATH = PATH + f"/{CLIENT_NAME}_images"
 
-if not os.path.exists(CLIENT_PATH):
-    os.mkdir(PATH + f"/{CLIENT_NAME}_images")
+## checking same folder already exist?
+if os.path.exists(os.path.abspath(CLIENT_PATH)):
+    print("USER ALREADY EXIST!")   
 else:
-    "USER ALREADY EXIST"
+    os.mkdir(PATH + f"/{CLIENT_NAME}_images")
 
 
+## start capturing
 while True:
     ret, frame = cap.read()
 
