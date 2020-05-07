@@ -2,7 +2,29 @@ import numpy as np
 
 def normalize(image, x_iris, y_iris, r_iris, x_pupil, y_pupil, r_pupil,
               radpixels, angulardiv):
- 
+    """
+    Description:
+        Normalize iris region by unwraping the circular region into a rectangular
+        block of constant dimensions.
+
+    Input:
+        image       - Input iris image.
+
+        x_iris      - x-coordinate of the circle defining the iris boundary.
+        y_iris      - y-coordinate of the circle defining the iris boundary.
+        r_iris      - Radius of the circle defining the iris boundary.
+
+        x_pupil     - x-coordinate of the circle defining the pupil boundary.
+        y_pupil     - y-coordinate of the circle defining the pupil boundary.
+        r_pupil     - Radius of the circle defining the pupil boundary.
+
+        radpixels   - Radial resolution (vertical dimension).
+        angulardiv  - Angular resolution (horizontal dimension).
+
+    Output:
+        polar_array - Normalized form of the iris region.
+        polar_noise - Normalized form of the noise region.
+    """
     radiuspixels = radpixels + 2
     angledivisions = angulardiv-1
 
@@ -104,7 +126,20 @@ def normalize(image, x_iris, y_iris, r_iris, x_pupil, y_pupil, r_pupil,
 
 
 def circlecoords(c, r, imgsize, nsides=600):
+"""
+Description:
+    Find the coordinates of a circle based on its centre and radius.
 
+Input:
+    c       - Centre of the circle.
+    r       - Radius of the circle.
+    imgsize - Size of the image that the circle will be plotted onto.
+    nsides  - Number of sides of the convex-hull bodering the circle
+                (default as 600).
+
+Output:
+    x,y     - Circle coordinates.
+"""
 a = np.linspace(0, 2*np.pi, 2*nsides+1)
 xd = np.round(r * np.cos(a) + c[0])
 yd = np.round(r * np.sin(a) + c[1])
