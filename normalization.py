@@ -1,7 +1,8 @@
 import numpy as np
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = (12,8)
 
-def normalize(image, x_iris, y_iris, r_iris, x_pupil, y_pupil, r_pupil,
-              radpixels, angulardiv):
+def normalize(image, x_iris, y_iris, r_iris, x_pupil, y_pupil, r_pupil, radpixels, angulardiv):
     """
     Description:
         Normalize iris region by unwraping the circular region into a rectangular
@@ -122,41 +123,68 @@ def normalize(image, x_iris, y_iris, r_iris, x_pupil, y_pupil, r_pupil,
     avg = np.sum(polar_array2) / (polar_array.shape[0] * polar_array.shape[1])
     polar_array[coords] = avg
 
+    ##### debugging
+
+    # print('polar_array', polar_array)
+    # print('polar_noise', polar_noise)
+
+    # plt.subplot(2,1,1)
+    # plt.imshow(polar_array, cmap='gray')
+    # plt.subplot(2,1,2)
+    # plt.imshow(polar_noise, cmap='gray')
+    # plt.show()
+
     return polar_array, polar_noise.astype(bool)
 
 
 def circlecoords(c, r, imgsize, nsides=600):
-"""
-Description:
+    """
+    Description:
     Find the coordinates of a circle based on its centre and radius.
 
-Input:
+    Input:
     c       - Centre of the circle.
     r       - Radius of the circle.
     imgsize - Size of the image that the circle will be plotted onto.
     nsides  - Number of sides of the convex-hull bodering the circle
-                (default as 600).
+    (default as 600).
 
-Output:
+    Output:
     x,y     - Circle coordinates.
-"""
-a = np.linspace(0, 2*np.pi, 2*nsides+1)
-xd = np.round(r * np.cos(a) + c[0])
-yd = np.round(r * np.sin(a) + c[1])
+    """
 
-#  Get rid of values larger than image
-xd2 = xd
-coords = np.where(xd >= imgsize[1])
-xd2[coords[0]] = imgsize[1] - 1
-coords = np.where(xd < 0)
-xd2[coords[0]] = 0
+    a = np.linspace(0, 2*np.pi, 2*nsides+1)
+    xd = np.round(r * np.cos(a) + c[0])
+    yd = np.round(r * np.sin(a) + c[1])
 
-yd2 = yd
-coords = np.where(yd >= imgsize[0])
-yd2[coords[0]] = imgsize[0] - 1
-coords = np.where(yd < 0)
-yd2[coords[0]] = 0
+    #  Get rid of values larger than image
+    xd2 = xd
+    coords = np.where(xd >= imgsize[1])
+    xd2[coords[0]] = imgsize[1] - 1
+    coords = np.where(xd < 0)
+    xd2[coords[0]] = 0
 
-x = np.round(xd2).astype(int)
-y = np.round(yd2).astype(int)
-return x,y
+    yd2 = yd
+    coords = np.where(yd >= imgsize[0])
+    yd2[coords[0]] = imgsize[0] - 1
+    coords = np.where(yd < 0)
+    yd2[coords[0]] = 0
+
+    x = np.round(xd2).astype(int)
+    y = np.round(yd2).astype(int)
+    return x,y
+
+
+# #### debugging
+
+# ### params
+
+# radial_res = 20
+# angular_res = 240
+
+# ciriris = np.load('iris-eye-ciriris-segementation-array.npy')
+# cirpupil = np.load('iris-eye-cirpupil-segementation-array.npy')
+# imwithnoise = np.load('iris-eye-imwithnoise-segementation-array.npy')
+
+# normalize(imwithnoise, ciriris[1], ciriris[0], ciriris[2], cirpupil[1], cirpupil[0], cirpupil[2],radial_res, angular_res)
+
