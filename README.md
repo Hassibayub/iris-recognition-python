@@ -6,7 +6,7 @@
 *-- regularly updated*
 
 
-## how far we have come :) (Important functions)
+## How far we have come :) (Important functions)
 
 - **ACQUISITION**
   - Through OpenCV
@@ -19,5 +19,11 @@
   - Search inner bound
   - Search outerbound
   - Find line, find line coordinates
+
+
+- **NORMALIZATION**
+  - Circle coordinated (updated)
+  - Binary norms (updated) (T/F returned => see code for details)
+
 
 
