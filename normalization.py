@@ -186,5 +186,11 @@ def circlecoords(c, r, imgsize, nsides=600):
 # cirpupil = np.load('iris-eye-cirpupil-segementation-array.npy')
 # imwithnoise = np.load('iris-eye-imwithnoise-segementation-array.npy')
 
-# normalize(imwithnoise, ciriris[1], ciriris[0], ciriris[2], cirpupil[1], cirpupil[0], cirpupil[2],radial_res, angular_res)
+# polar_array, noise_array = normalize(imwithnoise, ciriris[1], ciriris[0], ciriris[2], cirpupil[1], cirpupil[0], cirpupil[2],radial_res, angular_res)
 
+# np.save('normalization-polar_array', polar_array)
+# np.save('normalization-noise_array', noise_array)
+
+
+# plt.imsave('normalization-polar_array.png', polar_array, cmap='gray')
+# plt.imsave('normalization-noise_array.png', noise_array, cmap='gray')

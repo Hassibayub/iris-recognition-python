@@ -222,5 +222,4 @@ np.save('iris-eye-ciriris-segementation-array', ciriris)
 np.save('iris-eye-cirpupil-segementation-array', cirpupil)
 
 
-
 """
