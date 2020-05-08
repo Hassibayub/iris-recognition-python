@@ -1,16 +1,12 @@
 # folders
 
-haseeb_images/
-.vscode/
-__pycache__/
+/haseeb_images
+/.vscode
+/__pycache__
 
 
 # files
 
-iris-eye-ciriris-segementation-array.npy
-iris-eye-cirpupil-segementation-array.npy
-iris-eye-imwithnoise-segementation-array.npy
-iris-eye-imwithnoise-segementation-output.png
 *.png
 *.npy 
 *.jpg 
