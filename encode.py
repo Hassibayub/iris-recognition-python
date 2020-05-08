@@ -48,23 +48,21 @@ def encode(polar_array, noise_array, minWaveLength, mult, sigmaOnf):
         mask[:, ja] = noise_array[:, i] | H3[:, i]
         mask[:, ja + 1] = noise_array[:, i] | H3[:, i]
 
-    # Return
 
+    # print('template: ', template)
+    # print('mask: ', mask)
 
-    print('template: ', template)
-    print('mask: ', mask)
+    # plt.subplot(2,1,1)
+    # plt.imshow(template, cmap='gray')
+    # plt.subplot(2,1,2)
+    # plt.imshow(mask, cmap='gray')
+    # plt.show()
 
-    plt.subplot(2,1,1)
-    plt.imshow(template, cmap='gray')
-    plt.subplot(2,1,2)
-    plt.imshow(mask, cmap='gray')
-    plt.show()
+    # np.save('encode-template', template)
+    # np.save('encode-mask', mask)
 
-    np.save('encode-template', template)
-    np.save('encode-mask', mask)
-
-    plt.imsave(fname='encode-template.png', arr = template, cmap='gray')
-    plt.imsave(fname='encode-mask.png', arr = mask, cmap='gray')
+    # plt.imsave(fname='encode-template.png', arr = template, cmap='gray')
+    # plt.imsave(fname='encode-mask.png', arr = mask, cmap='gray')
 
     return template, mask
 
@@ -117,10 +115,10 @@ def gaborconvolve(im, minWaveLength, mult, sigmaOnf):
 
 ### debugging
 
-polar_array, noise_array = np.load('normalization-polar_array.npy'), np.load('normalization-noise_array.npy')
+# polar_array, noise_array = np.load('normalization-polar_array.npy'), np.load('normalization-noise_array.npy')
 
-minWaveLength = 18
-mult = 1
-sigmaOnf = 0.5
+# minWaveLength = 18
+# mult = 1
+# sigmaOnf = 0.5
 
-encode(polar_array, noise_array, minWaveLength, mult, sigmaOnf)
+# encode(polar_array, noise_array, minWaveLength, mult, sigmaOnf)
