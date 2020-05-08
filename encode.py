@@ -1,7 +1,21 @@
 import numpy as np 
 
 def encode(polar_array, noise_array, minWaveLength, mult, sigmaOnf):
+    """
+    Description:
+        Generate iris template and noise mask from the normalised iris region.
 
+    Input:
+        polar_array     - Normalised iris region.
+        noise_array     - Normalised noise region.
+        minWaveLength   - Base wavelength.
+        mult            - Multicative factor between each filter.
+        sigmaOnf        - Bandwidth parameter.
+
+    Output:
+        template        - The binary iris biometric template.
+        mask            - The binary iris noise mask.
+    """
     # Convolve normalised region with Gabor filters
     filterbank = gaborconvolve(polar_array, minWaveLength, mult, sigmaOnf)
 
@@ -36,7 +50,23 @@ def encode(polar_array, noise_array, minWaveLength, mult, sigmaOnf):
 
 
 def gaborconvolve(im, minWaveLength, mult, sigmaOnf):
+    """
+    Description:
+        Convolve each row of an image with 1D log-Gabor filters.
 
+    Input:
+        im              - The image to be convolved.
+        minWaveLength   - Wavelength of the basis filter.
+        mult            - Multiplicative factor between each filter.
+        sigmaOnf        - Ratio of the standard deviation of the
+                          Gaussian describing the log Gabor filter's transfer
+                          function in the frequency domain to the filter center
+                          frequency.
+
+    Output:
+        filterbank      - The 1D cell array of complex valued convolution
+                          resultsCircle coordinates.
+    """
     # Pre-allocate
     rows, ndata = im.shape                  # Size
     logGabor = np.zeros(ndata)              # Log-Gabor
