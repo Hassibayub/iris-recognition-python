@@ -9,10 +9,6 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore')
 
 
-##-----------------------------------------------------------------------------
-##  Function
-##-----------------------------------------------------------------------------
-
 def segment(eyeim, eyelashes_thres=80, use_multiprocess=False): #multiplrocessor falut
 
     """
