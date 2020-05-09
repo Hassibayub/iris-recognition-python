@@ -33,9 +33,9 @@ def extract_feature(image, eyelashes_thres = eyelashes_thres, use_multiprocess =
 
 ### debugging
 
-img = './iris-eye.jpg'
-temp, mask, image = extract_feature(img)
+# img = './iris-eye.jpg'
+# temp, mask, image = extract_feature(img)
 
-print('temp: ', temp), '\n\n\n'
-print('mask: ', mask), '\n\n\n'
-print('image: ', image, '\n\n\n')
+# print('temp: ', temp), '\n\n\n'
+# print('mask: ', mask), '\n\n\n'
+# print('image: ', image, '\n\n\n')
