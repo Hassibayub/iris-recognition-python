@@ -202,9 +202,9 @@ def findBottomEyelid(imsz, imageiris, rowp, rp, irl, icl, ret_bot=None):
 
 
 
-# im = cv.imread("./ir-eye.jpg", cv.IMREAD_GRAYSCALE)
+im = cv.imread("./ir-eye.jpg", cv.IMREAD_GRAYSCALE)
 
-# # im = cv.bitwise_not(im) #inverting color--- |||| do not invert ||||
+# im = cv.bitwise_not(im) #inverting color--- |||| do not invert ||||
 
 # print(im.shape)
 
