@@ -21,7 +21,7 @@ def extract_feature(image, eyelashes_thres = eyelashes_thres, use_multiprocess =
     
     img = imread(image, cv.IMREAD_GRAYSCALE)
 
-    ciriris, cirpupil, imwithnoise = segment(img, eyelashes_thres, use_multiprocess)
+    ciriris, cirpupil, imwithnoise = segment(img, eyelashes_thres, use_multiprocess= False)
 
     polar_array, noise_array = normalize(imwithnoise, ciriris[1], ciriris[0], ciriris[2],cirpupil[1], cirpupil[0], cirpupil[2],radial_res, angular_res)
 
