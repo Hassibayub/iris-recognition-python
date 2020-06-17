@@ -2,10 +2,12 @@
 import argparse
 from time import time
 
-from fnc.extractFeature import extractFeature
-from fnc.matching import matching
+from Extract_FEATURE import extractFeature
+from matching import matching
 
-# # # # Argument parsing
+##-----------------------------------------------------------------------------
+###### Argument parsing
+##-----------------------------------------------------------------------------
 
 parser = argparse.ArgumentParser()
 
@@ -22,7 +24,7 @@ args = parser.parse_args()
 
 
 ##-----------------------------------------------------------------------------
-##  Execution
+#######  Execution
 ##-----------------------------------------------------------------------------
 # Extract feature
 start = time()

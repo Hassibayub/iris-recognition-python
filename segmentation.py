@@ -94,15 +94,15 @@ def segment(eyeim, eyelashes_thres=80, use_multiprocess=False): #multiplrocessor
 
 
     #### shows the parameters
-    print("ciriris: ", ciriris)
-    print("cirpupil: ", cirpupil)
-    print("imwithnoise: ", imwithnoise)
+    # print("ciriris: ", ciriris)
+    # print("cirpupil: ", cirpupil)
+    # print("imwithnoise: ", imwithnoise)
 
     ### shows the image
-    plt.imshow(imwithnoise, cmap='gray')
+    # plt.imshow(imwithnoise, cmap='gray')
     # plt.imsave('iris-eye-imwithnoise-segementation-output.png', arr= imwithnoise, cmap='gray')
     # print("IMAGE SAVED TO LOCALE")
-    plt.show() 
+    # plt.show() 
 
     
     return ciriris, cirpupil, imwithnoise
@@ -209,7 +209,7 @@ def debug():
     # im = cv.imread("./dataset/019_2_4.jpg", cv.IMREAD_GRAYSCALE)
 
     # im = cv.resize(im, (280, 320))
-    print(im.shape)
+    # print(im.shape)
 
 
     # ciriris, cirpupil, imwithnoise = segment(im)
@@ -222,7 +222,7 @@ def debug():
     # np.save('iris-eye-ciriris-segementation-array', ciriris)
     # np.save('iris-eye-cirpupil-segementation-array', cirpupil)
 
-debug()
+# debug()
 
 
 
