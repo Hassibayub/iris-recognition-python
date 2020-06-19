@@ -1,62 +1,62 @@
-##-----------------------------------------------------------------------------
-##  Import
-##-----------------------------------------------------------------------------
 import numpy as np
 from os import listdir
 from fnmatch import filter
-import scipy.io as sio
-from multiprocessing import Pool, cpu_count
-from itertools import repeat
+import scipy.io as sio 
 
 import warnings
-warnings.filterwarnings("ignore")
+warnings.filterwarnings('ignore')
 
-
-##-----------------------------------------------------------------------------
-##  Function
-##-----------------------------------------------------------------------------
+#### Function
 def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
-    """
+    """ 
+
     Description:
-        Match the extracted template with database.
-
+        Match the extracted template with database 
+        
     Input:
-        template_extr   - Extracted template.
-        mask_extr       - Extracted mask.
-        threshold       - Threshold of distance.
-        temp_dir        - Directory contains templates.
-
+        template_extr       - Extracted Template
+        mask_extr           - Extracted Mask
+        temp_dir            - Theshold of distance
+        threshold           - Directory contains templates
+        
     Output:
-        List of strings of matched files, 0 if not, -1 if no registered sample.
+        List of strings of matched files, 
+        0 if not,
+        -1 if no registered sample.
+
     """
-    # Get the number of accounts in the database
+
+
     n_files = len(filter(listdir(temp_dir), '*.mat'))
     if n_files == 0:
         return -1
 
-    # Use all cores to calculate Hamming distances
-    args = zip(
-        sorted(listdir(temp_dir)),
-        repeat(template_extr),
-        repeat(mask_extr),
-        repeat(temp_dir),
-    )
-    with Pool(processes=cpu_count()) as pools:
-        result_list = pools.starmap(matchingPool, args)
+    files = filter(listdir(temp_dir), '*.mat')
+    # print("files:", files)
+    # print("template_extr: ", template_extr)
+    # print("mask_extr: ", mask_extr)
 
+    result_list = []
+    for file in files:
+        result_list.append(matchingPool(file, template_extr, mask_extr, temp_dir))
+
+    # print("result_list: ", result_list)
     filenames = [result_list[i][0] for i in range(len(result_list))]
     hm_dists = np.array([result_list[i][1] for i in range(len(result_list))])
+    # print("hm_dists: ", hm_dists)
 
-    # Remove NaN elements
-    ind_valid = np.where(hm_dists>0)[0]
+
+
+    # remove NANs
+    ind_valid = np.where(hm_dists > 0)[0]
     hm_dists = hm_dists[ind_valid]
+    # print("hm_dists NANs removed: ", hm_dists)
     filenames = [filenames[idx] for idx in ind_valid]
 
-    # Threshold and give the result ID
-    ind_thres = np.where(hm_dists<=threshold)[0]
+    ind_thres = np.where(hm_dists <= threshold)[0]
+    # print("ind_thres: ", ind_thres)
 
-    # Return
-    if len(ind_thres)==0:
+    if len(ind_thres) == 0:
         return 0
     else:
         hm_dists = hm_dists[ind_thres]
@@ -65,7 +65,9 @@ def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
         return [filenames[idx] for idx in ind_sort]
 
 
-#------------------------------------------------------------------------------
+
+
+ 
 def calHammingDist(template1, mask1, template2, mask2):
     """
     Description:
@@ -107,20 +109,21 @@ def calHammingDist(template1, mask1, template2, mask2):
     return hd
 
 
-#------------------------------------------------------------------------------
 def shiftbits(template, noshifts):
-    """
+
+    """ 
     Description:
-        Shift the bit-wise iris patterns.
+        Shift the bitwise iris pattern.
 
     Input:
-        template    - The template to be shifted.
-        noshifts    - The number of shift operators, positive for right
-                      direction and negative for left direction.
+        template        - The template to be shifted
+        noshifts        - The number of shifts operators, positive for right direction and negative for left direction.
 
-    Output:
-        templatenew - The shifted template.
+    OUtput:
+        templatenew     - The shifted template.
+
     """
+
     # Initialize
     templatenew = np.zeros(template.shape)
     width = template.shape[1]
@@ -145,9 +148,7 @@ def shiftbits(template, noshifts):
 
     # Return
     return templatenew
-
-
-#------------------------------------------------------------------------------
+    
 def matchingPool(file_temp_name, template_extr, mask_extr, temp_dir):
     """
     Description:
@@ -161,6 +162,10 @@ def matchingPool(file_temp_name, template_extr, mask_extr, temp_dir):
     Output:
         hm_dist         - Hamming distance
     """
+
+    # print("temp_dir: ", temp_dir)
+    # print("file_temp_name: ", file_temp_name)
+
     # Load each account
     data_template = sio.loadmat('%s%s'% (temp_dir, file_temp_name))
     template = data_template['template']
@@ -168,4 +173,6 @@ def matchingPool(file_temp_name, template_extr, mask_extr, temp_dir):
 
     # Calculate the Hamming distance
     hm_dist = calHammingDist(template_extr, mask_extr, template, mask)
-    return (file_temp_name, hm_dist)
+    print("hm_dist "+str(file_temp_name)+": \t"  , hm_dist)
+    return (file_temp_name, hm_dist)   
+

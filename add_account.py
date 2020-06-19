@@ -4,6 +4,7 @@ from time import time
 from time import sleep
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.io import savemat
 
 from Extract_FEATURE import extract_feature
 
@@ -64,17 +65,27 @@ def save_file(template, mask, image, username):
         print("USER NAME FOLDER DO NOT EXISTS")
         os.mkdir(USERNAME_FOLDER)
     
-    ## save template npy files to USERNAME FOLDER
-    user_template = os.path.join(USERNAME_FOLDER, 'haseeb_template')
-    np.save(user_template, arr= template)
-    
-    ## save mask npy files to USERNAME FOLDER
-    user_mask = os.path.join(USERNAME_FOLDER, 'haseeb_mask')
-    np.save(user_mask, arr= mask)
 
-    ## save image npy files to USERNAME FOLDER
-    user_image = os.path.join(USERNAME_FOLDER, 'haseeb_image')
-    np.save(user_image, arr= image)
+    basename = os.path.basename(username)
+    print("basebname: ", basename)
+    outfile = os.path.join(SAVE_DESTINATION, "%s.mat" % (basename) )
+    savemat(outfile, mdict={ 'template': template, 'mask':mask})
+
+
+
+    ######## numpy save deprecated 👇
+
+    # ## save template npy files to USERNAME FOLDER
+    # user_template = os.path.join(USERNAME_FOLDER, 'haseeb_template')
+    # np.save(user_template, arr= template)
+    
+    # ## save mask npy files to USERNAME FOLDER
+    # user_mask = os.path.join(USERNAME_FOLDER, 'haseeb_mask')
+    # np.save(user_mask, arr= mask)
+
+    # ## save image npy files to USERNAME FOLDER
+    # user_image = os.path.join(USERNAME_FOLDER, 'haseeb_image')
+    # np.save(user_image, arr= image)
 
 
 ##-----------------------------------------------------------------------------

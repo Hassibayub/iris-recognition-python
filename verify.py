@@ -2,22 +2,22 @@
 import argparse
 from time import time
 
-from Extract_FEATURE import extractFeature
-from matching import matching
+from Extract_FEATURE import extract_feature
+from matching2 import matching
 
 ##-----------------------------------------------------------------------------
 ###### Argument parsing
 ##-----------------------------------------------------------------------------
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description='Verify the user existance with respect to already existing users.')
 
-parser.add_argument("--file", type=str,
+parser.add_argument('-f', "--file", type=str,metavar='',
                     help="Path to the file that you want to verify.")
 
-parser.add_argument("--temp_dir", type=str, default="./templates/",
+parser.add_argument('-d', "--temp_dir", type=str, metavar='', default="./template/",
                     help="Path to the directory containing templates.")
 
-parser.add_argument("--thres", type=float, default=0.38,
+parser.add_argument('-t', "--thres", type=float, default=0.38, metavar='',
                     help="Threshold for matching.")
 
 args = parser.parse_args()
@@ -29,7 +29,7 @@ args = parser.parse_args()
 # Extract feature
 start = time()
 print('>>> Start verifying {}\n'.format(args.file))
-template, mask, file = extractFeature(args.file)
+template, mask, file = extract_feature(args.file)
 
 
 # Matching
@@ -41,7 +41,10 @@ if result == -1:
 elif result == 0:
     print('>>> No sample matched.')
 
+
+
 else:
+    # print(result)
     print('>>> {} samples matched (descending reliability):'.format(len(result)))
     for res in result:
         print("\t", res)

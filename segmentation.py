@@ -203,7 +203,7 @@ def findBottomEyelid(imsz, imageiris, rowp, rp, irl, icl, ret_bot=None):
 
 
 
-def debug():
+# def debug():
     # DIRECTORY_DATASET = os.path.abspath('./dataset/CASIA1') 
 
     # im = cv.imread("./dataset/019_2_4.jpg", cv.IMREAD_GRAYSCALE)
