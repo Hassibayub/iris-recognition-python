@@ -1,6 +1,7 @@
 # # # Import
 import argparse
 from time import time
+import logging, os
 
 from Extract_FEATURE import extract_feature
 from matching2 import matching
@@ -44,3 +45,23 @@ else:
 # Time measure
 end = time()
 print('\n>>> Verification time: {} [s]\n'.format(end - start))
+
+##-----------------------------------------------------------------------------
+###### logging
+##-----------------------------------------------------------------------------
+
+if not os.path.isdir('log/'):
+    # print('log folder not exits')
+    os.mkdir('log')
+
+logging.basicConfig(filename='./log/logs.log', format= '%(asctime)s %(message)s')
+logger = logging.getLogger()
+
+logger.setLevel(logging.DEBUG)
+
+logger.info(f'USER: "{res[:-4]}", FILENAME:{result}, THRESH: {args.thres}')
+
+    
+
+
+    
