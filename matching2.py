@@ -9,7 +9,6 @@ warnings.filterwarnings('ignore')
 #### Function
 def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
     """ 
-
     Description:
         Match the extracted template with database 
         
@@ -21,9 +20,8 @@ def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
         
     Output:
         List of strings of matched files, 
-        0 if not,
-        -1 if no registered sample.
-
+        0   if not,
+        -1  if no registered sample.
     """
 
 
@@ -40,11 +38,17 @@ def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
     for file in files:
         result_list.append(matchingPool(file, template_extr, mask_extr, temp_dir))
 
+    #-------------------------------------------
+    print()
+    for name_, dist_ in result_list:
+        if dist_ == 0:
+            print(">>>> User {} FOUND!".format(name_[:-4]), '\n')
+    #-------------------------------------------
+
     # print("result_list: ", result_list)
     filenames = [result_list[i][0] for i in range(len(result_list))]
     hm_dists = np.array([result_list[i][1] for i in range(len(result_list))])
     # print("hm_dists: ", hm_dists)
-
 
 
     # remove NANs
@@ -63,9 +67,6 @@ def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
         filenames = [filenames[idx] for idx in ind_thres]
         ind_sort = np.argsort(hm_dists)
         return [filenames[idx] for idx in ind_sort]
-
-
-
 
  
 def calHammingDist(template1, mask1, template2, mask2):
@@ -174,5 +175,6 @@ def matchingPool(file_temp_name, template_extr, mask_extr, temp_dir):
     # Calculate the Hamming distance
     hm_dist = calHammingDist(template_extr, mask_extr, template, mask)
     print("hm_dist "+str(file_temp_name)+": \t"  , hm_dist)
+    
     return (file_temp_name, hm_dist)   
 
