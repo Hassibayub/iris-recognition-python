@@ -7,7 +7,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 #### Function
-def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
+def matching(template_extr, mask_extr, temp_dir, threshold=0.38): # threshold 0.38 -> 0.426
     """ 
     Description:
         Match the extracted template with database 
@@ -38,27 +38,32 @@ def matching(template_extr, mask_extr, temp_dir, threshold=0.38):
     for file in files:
         result_list.append(matchingPool(file, template_extr, mask_extr, temp_dir))
 
-    #-------------------------------------------
-    print()
-    for name_, dist_ in result_list:
-        if dist_ == 0:
-            print(">>>> User {} FOUND!".format(name_[:-4]), '\n')
-    #-------------------------------------------
+    """ getting zero hamming distance is no good because it is for any ideal condition, so we are removing it. """
 
-    # print("result_list: ", result_list)
     filenames = [result_list[i][0] for i in range(len(result_list))]
     hm_dists = np.array([result_list[i][1] for i in range(len(result_list))])
-    # print("hm_dists: ", hm_dists)
 
+    #-------------------------------------------
+    # print()
+    # for name_, dist_ in result_list:
+    #     if dist_ == 0:
+    #         print(">>>> User {} FOUND!".format(name_[:-4]), '\n')
+    # print("result_list: ", result_list)
+    # print("hm_dists: ", hm_dists)
+    # print("filenames: ", filenames)
+    #-------------------------------------------
+
+    # print(np.where(hm_dists>0)[0])  # returns non zero array. [0] != first element only
 
     # remove NANs
     ind_valid = np.where(hm_dists > 0)[0]
     hm_dists = hm_dists[ind_valid]
     # print("hm_dists NANs removed: ", hm_dists)
-    filenames = [filenames[idx] for idx in ind_valid]
+    filenames = [filenames[idx] for idx in ind_valid] # filenames of the non zero files
+    # print(filenames)
 
-    ind_thres = np.where(hm_dists <= threshold)[0]
-    # print("ind_thres: ", ind_thres)
+    ind_thres = np.where(hm_dists <= threshold)[0]  # hamming distance greater than the threshold are removed
+    # print("ind_thres: ", ind_thres)   # number samples left
 
     if len(ind_thres) == 0:
         return 0
@@ -174,7 +179,7 @@ def matchingPool(file_temp_name, template_extr, mask_extr, temp_dir):
 
     # Calculate the Hamming distance
     hm_dist = calHammingDist(template_extr, mask_extr, template, mask)
-    print("hm_dist "+str(file_temp_name)+": \t"  , hm_dist)
+    # print("hm_dist "+str(file_temp_name)+": \t"  , hm_dist)
     
     return (file_temp_name, hm_dist)   
 

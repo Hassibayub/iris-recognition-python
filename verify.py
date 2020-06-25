@@ -16,8 +16,8 @@ parser.add_argument('-f', "--file", type=str,metavar='',
 parser.add_argument('-d', "--temp_dir", type=str, metavar='', default="./template/",
                     help="Path to the directory containing templates.")
 
-parser.add_argument('-t', "--thres", type=float, default=0.38, metavar='',
-                    help="Threshold for matching.")
+parser.add_argument('-t', "--thres", type=float, default=0.426, metavar='',
+                    help="Threshold for matching.") # default 0.38 -> 0.426
 
 args = parser.parse_args()
 ##-----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ else:
     # print(result)
     print('>>> {} samples matched (descending reliability):'.format(len(result)))
     for res in result:
-        print("\t", res)
+        print("\t", res[:-4])
 
 # Time measure
 end = time()

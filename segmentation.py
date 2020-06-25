@@ -203,16 +203,16 @@ def findBottomEyelid(imsz, imageiris, rowp, rp, irl, icl, ret_bot=None):
 
 
 
-# def debug():
+def debug():
     # DIRECTORY_DATASET = os.path.abspath('./dataset/CASIA1') 
 
-    # im = cv.imread("./dataset/019_2_4.jpg", cv.IMREAD_GRAYSCALE)
+    im = cv.imread("faizan-01.jpg", cv.IMREAD_GRAYSCALE)
 
     # im = cv.resize(im, (280, 320))
     # print(im.shape)
 
 
-    # ciriris, cirpupil, imwithnoise = segment(im)
+    ciriris, cirpupil, imwithnoise = segment(im)
 
     # print("ciriris", ciriris, "\n\n\n\n")
     # print("cirpupil", cirpupil, "\n\n\n\n")
